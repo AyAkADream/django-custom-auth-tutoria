@@ -1,0 +1,25 @@
+#/bin/sh 
+DIR=`pwd`
+VENV=myvenv
+
+if [ "$1" = "create" ]; then
+
+  rm -rf $DIR/$VENV
+  mkdir  $DIR/$VENV
+
+  cd $DIR
+  python36 -m venv $VENV
+  source    $DIR/$VENV/bin/activate
+  pip3       install --upgrade pip
+  pip3       install -r requirements.txt
+
+  echo "python env created"
+
+elif [ "$1" = "freeze" ]; then
+  mv requirements.txt requirements.txt.1
+  pip3 freeze > requirements.txt
+else
+  echo   $DIR/$VENV/bin/activate
+  source $DIR/$VENV/bin/activate
+  echo  "python env set"
+fi
